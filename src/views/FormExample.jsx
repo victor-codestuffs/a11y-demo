@@ -2,16 +2,16 @@ import { style } from '@react-spectrum/s2/style' with {type: 'macro'};
 import { Form, TextField, Checkbox, Button } from '@react-spectrum/s2';
 import { useState } from 'react';
 
-export default function Keys() {
+export default function FormExample() {
   const [isPending, setIsPending] = useState(false);
 
-  const blockCheckbox = event => {
+  const onKeyDown = event => {
     if (event.code === "Space" || event.code === "Enter") {
       event.preventDefault();
     }
   };
 
-  const onLoginPress = event => {
+  const onPress = event => {
     setIsPending(true);
     setTimeout(() => {
       setIsPending(false);
@@ -24,8 +24,8 @@ export default function Keys() {
         <Form>
           <TextField label="Email" />
           <TextField label="Password" type="password" excludeFromTabOrder />
-          <Checkbox onKeyDown={event => blockCheckbox(event)}>Remember me</Checkbox>
-          <Button styles={style({width: "100%"})} isPending={isPending} onPress={onLoginPress}>Log in</Button>
+          <Checkbox onKeyDown={onKeyDown}>Remember me</Checkbox>
+          <Button styles={style({width: "100%"})} isPending={isPending} onPress={onPress}>Log in</Button>
         </Form>
       </div>
     </>

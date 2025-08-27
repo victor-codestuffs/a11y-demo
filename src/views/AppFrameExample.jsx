@@ -1,4 +1,4 @@
-export default function AppFrame() {
+export default function AppFrameExample() {
   return (
     <>
       AppFrame

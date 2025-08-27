@@ -3,13 +3,13 @@ import { Provider, TabList, Tabs, Tab } from '@react-spectrum/s2';
 import '@react-spectrum/s2/page.css';
 import { useState } from 'react';
 import './App.css'
-import KeysExample from './views/Keys.jsx'
-import FocusOrderExample from './views/FocusOrder.jsx'
-import DialogExample from './views/Dialog.jsx'
-import AppFrameExample from './views/AppFrame.jsx'
+import FormExample from './views/FormExample.jsx'
+import DialogExample from './views/DialogExample.jsx'
+import AppFrameExample from './views/AppFrameExample.jsx'
 
 function App() {
   const [tab, setTab] = useState("react-aria-1");
+  const tabs = ["Form Example", "Dialog Example", "App Frame Example"];
   return (
     <Provider background="base" styles={style({width: "100%"})}>
       <header style={{ height: "48px", display: "flex", justifyContent: "center" }}>
@@ -18,21 +18,18 @@ function App() {
           selectedKey={tab}
           onSelectionChange={setTab}>
           <TabList>
-            {["One", "Two", "Three", "Four"].map((str, i) => (<Tab key={i}>Example {str}</Tab>))}
+            {tabs.map((str, i) => (<Tab key={i}>{str}</Tab>))}
           </TabList>
         </Tabs>
       </header>
       <main style={{ flex: 1, display: "flex", justifyContent: "center" }}>
         {tab === "react-aria-1" && (
-          <KeysExample />
+          <FormExample />
         )}
         {tab === "react-aria-2" && (
-          <FocusOrderExample />
-        )}
-        {tab === "react-aria-3" && (
           <DialogExample />
         )}
-        {tab === "react-aria-4" && (
+        {tab === "react-aria-3" && (
           <AppFrameExample />
         )}
       </main>
