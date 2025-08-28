@@ -1,8 +1,9 @@
 import { style } from '@react-spectrum/s2/style' with {type: 'macro'};
-import { ActionButton, CloseButton, CustomDialog, DialogTrigger, ColorArea, ColorSwatch, ColorSlider, ColorSwatchPicker } from '@react-spectrum/s2';
-import { useEffect } from "react";
+import { ActionButton, CloseButton, CustomDialog, DialogTrigger, ColorArea, ColorSwatch, ColorField, ColorSwatchPicker } from '@react-spectrum/s2';
+import { useEffect, useState } from "react";
 
 export default function DialogExample() {
+  const [color, setColor] = useState("rgb(255, 255, 255)")
   useEffect(() => {
     function stopPropagation(event) {
       event.stopImmediatePropagation()
@@ -21,14 +22,15 @@ export default function DialogExample() {
           <ActionButton>Open dialog</ActionButton>
           <CustomDialog padding="none">
             <div style={{ padding: "32px 24px 24px" }}>
-              <ColorArea />
-              <ColorSlider
-                styles={style({marginTop: 16})}
-                defaultValue="#7f0000"
-                channel="red"
-                name="red"
+              <ColorArea
+                value={color}
+                colorSpace='rgb'
+                onChange={setColor}
                 />
-              <ColorSwatchPicker styles={style({marginTop: 16})} >
+              <ColorField value={color} label="R" channel="red" colorSpace="rgb" labelPosition="side" styles={style({ width: 192, marginTop: 16 })} onChange={setColor} />
+              <ColorField value={color} label="G" channel="green" colorSpace="rgb" labelPosition="side" styles={style({ width: 192, marginTop: 8 })} onChange={setColor} />
+              <ColorField value={color} label="B" channel="blue" colorSpace="rgb" labelPosition="side" styles={style({ width: 192, marginTop: 8 })} onChange={setColor} />
+              <ColorSwatchPicker styles={style({marginTop: 16})} onChange={setColor}>
                 <ColorSwatch color="#A00" rounding='default' size='S' />
                 <ColorSwatch color="#f80" rounding='default' size='S' />
                 <ColorSwatch color="#080" rounding='default' size='S' />

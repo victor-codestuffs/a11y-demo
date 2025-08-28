@@ -1,5 +1,5 @@
 import { style } from '@react-spectrum/s2/style' with {type: 'macro'};
-import { ActionButtonGroup, ActionButton, Avatar, Button, ButtonGroup, ToggleButton, ToggleButtonGroup, TooltipTrigger, Tooltip, Text, Divider, Picker, PickerItem, TreeView, TreeViewItem, TreeViewItemContent, ActionMenu, MenuItem, TextArea, NumberField } from '@react-spectrum/s2';
+import { ActionButtonGroup, ActionButton, Avatar, Button, ButtonGroup, ToggleButton, ToggleButtonGroup, TooltipTrigger, Tooltip, Text, Divider, Picker, PickerItem, TreeView, TreeViewItem, TreeViewItemContent, ActionMenu, TextArea, NumberField, MenuTrigger, Menu, MenuItem, SubmenuTrigger, MenuSection } from '@react-spectrum/s2';
 import MenuHamburger from '@react-spectrum/s2/icons/MenuHamburger';
 import Select from '@react-spectrum/s2/icons/Select';
 import Brush from '@react-spectrum/s2/icons/Brush';
@@ -24,10 +24,12 @@ import Download from '@react-spectrum/s2/icons/Download';
 import Folder from '@react-spectrum/s2/icons/Folder';
 import Edit from '@react-spectrum/s2/icons/Edit';
 import Delete from '@react-spectrum/s2/icons/Delete';
-import FileText from '@react-spectrum/s2/icons/FileText';
+import Layers from '@react-spectrum/s2/icons/Layers';
 import TextAlignLeft from '@react-spectrum/s2/icons/TextAlignLeft';
 import TextAlignCenter from '@react-spectrum/s2/icons/TextAlignCenter';
 import TextAlignRight from '@react-spectrum/s2/icons/TextAlignRight';
+import Duplicate from '@react-spectrum/s2/icons/Duplicate';
+import Group from '@react-spectrum/s2/icons/Group';
 import { useState } from 'react';
 
 function TreeViewItemMenu() {
@@ -47,7 +49,7 @@ function TreeViewItemMenu() {
 
 export default function AppFrameExample() {
   const [text, setText] = useState("Hello world");
-  const [fontSize, setFontSize] = useState(24);
+  const [fontSize, setFontSize] = useState(32);
   const [textAlign, setTextAlign] = useState(1);
 
   const getTextAlign = (value) => {
@@ -62,12 +64,39 @@ export default function AppFrameExample() {
     textAlign: getTextAlign(textAlign),
   };
 
+  const onKeyDown = event => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setText(`${text}    `);
+    }
+  }
+
   return (
     <>
       <div style={{ display: "flex", flexFlow: "column", width: "100%" }}>
         <nav className="u-frame-color" style={{ display: "flex", height: "48px", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginLeft: "12px" }}>
-            <ActionButton isQuiet><MenuHamburger /></ActionButton>
+            <MenuTrigger>
+              <ActionButton isQuiet><MenuHamburger /></ActionButton>
+              <Menu>
+                <MenuSection>
+                  <MenuItem>New</MenuItem>
+                  <MenuItem>Open</MenuItem>
+                  <MenuItem>Save</MenuItem>
+                </MenuSection>
+                <MenuSection>
+                  <SubmenuTrigger>
+                    <MenuItem>Edit</MenuItem>
+                    <Menu>
+                      <MenuItem>Undo</MenuItem>
+                      <MenuItem>Redo</MenuItem>
+                    </Menu>
+                  </SubmenuTrigger>
+                </MenuSection>
+
+              </Menu>
+            </MenuTrigger>
+
             <div>Untitled</div>
           </div>
           <div style={{ display: "flex", flex: 1, alignItems: "center", justifyContent: "flex-end", gap: "8px", marginRight: "12px", marginLeft: "auto" }}>
@@ -75,7 +104,7 @@ export default function AppFrameExample() {
               <ActionButton isDisabled><Undo /></ActionButton>
               <ActionButton isDisabled><Redo /></ActionButton>
             </ActionButtonGroup>
-            <Picker isQuiet aria-label="Zoom" menuWidth={144} defaultSelectedKey={1}>
+            <Picker isQuiet aria-label="Zoom" menuWidth={144} defaultSelectedKey={2}>
               {[
                 "Zoom in",
                 "Zoom out",
@@ -89,7 +118,7 @@ export default function AppFrameExample() {
             </Picker>
             <ButtonGroup>
               <Button variant='secondary'><Invite /><Text>Invite</Text></Button>
-              <Button variant='accent' autoFocus><Download /><Text>Download</Text></Button>
+              <Button variant='accent'><Download /><Text>Download</Text></Button>
             </ButtonGroup>
             <Divider orientation='vertical' />
             <ActionButton isQuiet><Avatar src="https://i.imgur.com/xIe7Wlb.png" size="28" /></ActionButton>
@@ -137,6 +166,11 @@ export default function AppFrameExample() {
               <h4 style={{ margin: 0 }}>
                 Outliner
               </h4>
+              <ActionButtonGroup isQuiet styles={style({marginTop: 16})}>
+                <ActionButton><Duplicate /></ActionButton>
+                <ActionButton><Group /></ActionButton>
+                <ActionButton><Delete /></ActionButton>
+              </ActionButtonGroup>
               <TreeView
                 aria-label="test static tree"
                 isEmphasized
@@ -144,33 +178,33 @@ export default function AppFrameExample() {
                 selectionMode='none'
                 styles={style({marginTop: 16})}
                 >
-                <TreeViewItem id="projects" textValue="Projects">
+                <TreeViewItem textValue="Group">
                   <TreeViewItemContent>
-                    <Text>Projects</Text>
+                    <Text>Group</Text>
                     <Folder />
                     <TreeViewItemMenu />
                   </TreeViewItemContent>
-                  <TreeViewItem id="projects-1" textValue="Projects-1">
+                  <TreeViewItem textValue="Group 1">
                     <TreeViewItemContent>
-                      <Text>Projects-1</Text>
+                      <Text>Group 1</Text>
                       <Folder />
                       <TreeViewItemMenu />
                     </TreeViewItemContent>
-                    <TreeViewItem id="projects-1A" textValue="Projects-1A">
+                    <TreeViewItem textValue="Layer 1">
                       <TreeViewItemContent>
-                        <Text>Projects-1A</Text>
-                        <FileText />
+                        <Text>Layer 1</Text>
+                        <Layers />
                         <TreeViewItemMenu />
                       </TreeViewItemContent>
                     </TreeViewItem>
                   </TreeViewItem>
-                  <TreeViewItem id="projects-2" textValue="Projects-2">
-                    <TreeViewItemContent>
-                      <Text>Projects-2</Text>
-                      <FileText />
-                      <TreeViewItemMenu />
-                    </TreeViewItemContent>
-                  </TreeViewItem>
+                </TreeViewItem>
+                <TreeViewItem textValue="Background">
+                  <TreeViewItemContent>
+                    <Text>Background</Text>
+                    <Layers />
+                    <TreeViewItemMenu />
+                  </TreeViewItemContent>
                 </TreeViewItem>
               </TreeView>
             </div>
@@ -183,6 +217,7 @@ export default function AppFrameExample() {
                 value={text}
                 label="Text"
                 onChange={setText}
+                onKeyDown={onKeyDown}
                 />
               <NumberField
                 styles={style({marginTop: 16})}
