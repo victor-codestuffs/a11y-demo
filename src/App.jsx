@@ -1,14 +1,14 @@
 import { style } from '@react-spectrum/s2/style' with {type: 'macro'};
 import { Provider, TabList, Tabs, Tab } from '@react-spectrum/s2';
-import '@react-spectrum/s2/page.css';
 import { useState } from 'react';
-import './App.css'
 import FormExample from './views/FormExample.jsx'
 import DialogExample from './views/DialogExample.jsx'
 import AppFrameExample from './views/AppFrameExample.jsx'
+import '@react-spectrum/s2/page.css';
+import './App.css'
 
 function App() {
-  const [tab, setTab] = useState("react-aria-1");
+  const [tab, setTab] = useState("react-aria-3"); // reset to 1
   const tabs = ["Form Example", "Dialog Example", "App Frame Example"];
   return (
     <Provider background="base" styles={style({width: "100%"})}>

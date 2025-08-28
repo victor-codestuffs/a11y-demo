@@ -2,3 +2,11 @@
   display: flex;
   font-family: var(--s2-font-family-sans, adobe-clean-spectrum-vf), adobe-clean-variable, adobe-clean, ui-sans-serif, system-ui, sans-serif;
 }
+
+.u-frame-color {
+  background-color: rgb(34, 34, 34);
+}
+
+.u-border-radius {
+  border-radius: 8px;
+}

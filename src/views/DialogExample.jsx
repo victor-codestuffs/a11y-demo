@@ -1,6 +1,6 @@
 import { style } from '@react-spectrum/s2/style' with {type: 'macro'};
 import { ActionButton, CloseButton, CustomDialog, DialogTrigger, ColorArea, ColorSwatch, ColorSlider, ColorSwatchPicker } from '@react-spectrum/s2';
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function DialogExample() {
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function DialogExample() {
         <DialogTrigger>
           <ActionButton>Open dialog</ActionButton>
           <CustomDialog padding="none">
-            <div style={{ padding: "32px" }}>
+            <div style={{ padding: "32px 24px 24px" }}>
               <ColorArea />
               <ColorSlider
                 styles={style({marginTop: 16})}
